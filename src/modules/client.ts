@@ -10,6 +10,7 @@ import { UrlModule } from '@vue-storefront/core/modules/url'
 import { BreadcrumbsModule } from '@vue-storefront/core/modules/breadcrumbs'
 import { UserModule } from '@vue-storefront/core/modules/user'
 import { CmsModule } from '@vue-storefront/core/modules/cms'
+import { LearningModule } from './learning-module'
 // import { GoogleTagManagerModule } from './google-tag-manager';
 // import { AmpRendererModule } from './amp-renderer';
 import { PaymentBackendMethodsModule } from './payment-backend-methods'
@@ -39,6 +40,7 @@ export function registerClientModules () {
   registerModule(CmsModule)
   registerModule(NewsletterModule)
   registerModule(InitialResourcesModule)
+  registerModule(LearningModule)
   // registerModule(DeviceModule)
 }
 
