@@ -1,11 +1,11 @@
 <template>
   <button
-    :class="['mr10 mb5 bg-cl-transparent brdr-1 brdr-circle brdr-cl-transparent :brdr-cl-bg-primary relative inline-flex pointer color', isActive ? 'active' : '']"
+    :class="['relative inline-flex pointer color', isActive ? 'active' : '']"
     @click="$emit('change', variant)"
     :aria-label="$t('Select color ') + variant.label"
   >
     <span
-      class="absolute brdr-circle brdr-1 brdr-cl-secondary block color-inside"
+      class="absolute block color-inside"
       :style="colorFrom(variant.label)"
     />
   </button>
@@ -42,8 +42,8 @@ export default {
   $color-active: color(primary);
 
   .color {
-    width: 40px;
-    height: 40px;
+    width: 62px;
+    height: 62px;
 
     &.active {
       border-color: $color-active;
@@ -51,8 +51,8 @@ export default {
   }
 
   .color-inside {
-    width: 34px;
-    height: 34px;
+    width: 62px;
+    height: 62px;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%)

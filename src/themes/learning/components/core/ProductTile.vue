@@ -37,25 +37,27 @@
           data-testid="productImage"
         />
       </div>
+      <div class="product-info">
+        <p class="mb0 cl-accent mt10" v-if="!onlyImage">
+          {{ product.name | htmlDecode }}
+        </p>
 
-      <p class="mb0 cl-accent mt10" v-if="!onlyImage">
-        {{ product.name | htmlDecode }}
-      </p>
+        <span
+          class="price-original mr5 lh30 cl-secondary"
+          v-if="product.special_price && parseFloat(product.original_price_incl_tax) > 0 && !onlyImage"
+        >{{ product.original_price_incl_tax | price(storeView) }}</span>
 
-      <span
-        class="price-original mr5 lh30 cl-secondary"
-        v-if="product.special_price && parseFloat(product.original_price_incl_tax) > 0 && !onlyImage"
-      >{{ product.original_price_incl_tax | price(storeView) }}</span>
+        <span
+          class="price-special lh30 cl-accent weight-700"
+          v-if="product.special_price && parseFloat(product.special_price) > 0 && !onlyImage"
+        >{{ product.price_incl_tax | price(storeView) }}</span>
 
-      <span
-        class="price-special lh30 cl-accent weight-700"
-        v-if="product.special_price && parseFloat(product.special_price) > 0 && !onlyImage"
-      >{{ product.price_incl_tax | price(storeView) }}</span>
-
-      <span
-        class="lh30 cl-secondary"
-        v-if="!product.special_price && parseFloat(product.price_incl_tax) > 0 && !onlyImage"
-      >{{ product.price_incl_tax | price(storeView) }}</span>
+        <span
+          class="lh30 cl-secondary"
+          v-if="!product.special_price && parseFloat(product.price_incl_tax) > 0 && !onlyImage"
+        >{{ product.price_incl_tax | price(storeView) }}</span>
+        <add-to-cart v-if="type == 'related'" :product="product" />
+      </div>
     </router-link>
   </div>
 </template>
@@ -70,15 +72,21 @@ import AddToCompare from 'theme/components/core/blocks/Compare/AddToCompare'
 import { IsOnWishlist } from '@vue-storefront/core/modules/wishlist/components/IsOnWishlist'
 import { IsOnCompare } from '@vue-storefront/core/modules/compare/components/IsOnCompare'
 import { currentStoreView } from '@vue-storefront/core/lib/multistore'
+import AddToCart from 'theme/components/core/AddToCart'
 
 export default {
   mixins: [ProductTile, IsOnWishlist, IsOnCompare],
   components: {
     ProductImage,
     AddToWishlist,
-    AddToCompare
+    AddToCompare,
+    AddToCart
   },
   props: {
+    type: {
+      type: String,
+      required: true
+    },
     labelsActive: {
       type: Boolean,
       default: true

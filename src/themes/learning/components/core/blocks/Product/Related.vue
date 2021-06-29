@@ -1,16 +1,17 @@
 <template>
   <section
-    class="py20 new-collection container px15"
+    class="py25 new-collection container px15"
+    :class="type"
     v-if="getCurrentRelatedProducts.length"
   >
     <div>
-      <header class="col-md-12">
-        <h2 class="align-center cl-accent">
+      <header class="col-md-12 p0">
+        <h3 class="align-left cl-accent mb30">
           {{ heading }}
-        </h2>
+        </h3>
       </header>
     </div>
-    <product-listing columns="4" :products="getCurrentRelatedProducts" />
+    <product-listing columns="4" :products="getCurrentRelatedProducts" :type="type" />
   </section>
 </template>
 

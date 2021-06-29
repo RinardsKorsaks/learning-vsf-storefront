@@ -18,3 +18,9 @@ export default {
   mixins: [Breadcrumbs]
 }
 </script>
+<style lang="scss" scoped>
+.breadcrumbs {
+  padding-top: 58px;
+  padding-bottom: 17px;
+}
+</style>

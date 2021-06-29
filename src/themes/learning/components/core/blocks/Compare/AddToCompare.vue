@@ -1,18 +1,12 @@
 <template>
   <button
     @click="isOnCompare ? removeProduct(product) : addProduct(product)"
-    class="p0 inline-flex middle-xs bg-cl-transparent brdr-none action h5 pointer cl-secondary"
+    class="inline-flex middle-xs bg-cl-primary brdr-1 brdr-cl-gainsboro action h5 pointer cl-secondary"
     type="button"
     data-testid="addToCompare"
   >
     <slot>
-      <i class="pr5 material-icons">compare</i>
-      <template v-if="!isOnCompare">
-        {{ $t('Add to compare') }}
-      </template>
-      <template v-else>
-        {{ $t('Remove from compare') }}
-      </template>
+      <i class="material-icons">compare</i>
     </slot>
   </button>
 </template>
@@ -52,3 +46,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+button {
+  padding: 18px;
+}
+</style>

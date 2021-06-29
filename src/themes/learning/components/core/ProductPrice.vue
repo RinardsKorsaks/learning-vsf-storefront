@@ -1,18 +1,18 @@
 <template>
-  <div class="mb40 price serif">
+  <div class="price serif pb20">
     <div
       class="h3 cl-secondary"
       v-if="initialPrice.special && price.default && price.original"
     >
       <span
-        class="h2 cl-mine-shaft weight-700"
+        class="h2 cl-learning-green weight-700"
       >{{ price.special | price(storeView) }}</span>&nbsp;
       <span
         class="price-original h3"
       >{{ price.original | price(storeView) }}</span>
     </div>
     <div
-      class="h2 cl-mine-shaft weight-700"
+      class="h2 cl-learning-green weight-700"
       v-if="!initialPrice.special && price.default"
     >
       {{ price.default | price(storeView) }}
@@ -93,11 +93,13 @@ export default {
 @import '~theme/css/variables/colors';
 @import '~theme/css/helpers/functions/color';
 $color-primary: color(primary);
+
 .price-original {
   text-decoration: line-through;
 }
 
 .price {
+  border-bottom: 1px solid #E0E0E0;
   @media (max-width: 767px) {
     color: $color-primary;
   }

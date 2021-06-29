@@ -1,12 +1,13 @@
 <template>
-  <div class="product-quantity">
+  <div class="product-quantity relative">
+    <button class="decrease" @click="decrement" />
     <base-input-number
       :name="name"
       :value="value"
       :min="1"
       :max="max"
       :disabled="disabled"
-      @input="$emit('input', $event)"
+      @input="onInput"
       @blur="$v.$touch()"
       only-positive
       :validations="[
@@ -20,6 +21,7 @@
         }
       ]"
     />
+    <button class="increase" @click="increment" />
     <spinner v-if="loading" />
   </div>
 </template>
@@ -99,12 +101,35 @@ export default {
     '$v.$invalid' (error) {
       this.$emit('error', error)
     }
+  },
+  methods: {
+    increment () {
+      if (this.value < this.maxQuantity) {
+        this.$emit('input', this.value + 1)
+      }
+    },
+    decrement () {
+      if (this.value > 1) {
+        this.$emit('input', this.value - 1)
+      }
+    },
+    onInput (e) {
+      console.log(this.value)
+      this.$emit('input', e)
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
+@mixin button-icon {
+  content: "";
+  width: 12px;
+  height: 2px;
+  background: #333;
+  position: absolute;
+}
+
 .product-quantity {
-  position: relative;
   /deep/ .spinner {
     position: absolute;
     top: 0;
@@ -112,6 +137,56 @@ export default {
     bottom: 0;
     left: 0;
     margin: auto;
+  }
+  .increase, .decrease {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    height: 62px;
+    width: 62px;
+    position: relative;
+  }
+  .decrease{
+    border-right: none;
+    &::before {
+    @include button-icon;
+    left: 26px;
+  }
+  }
+  .increase {
+    border-left: none;
+    &::before {
+      @include button-icon;
+      right: 25px;
+    }
+    &::after {
+      @include button-icon;
+      transform: rotate(90deg);
+      right: 25px;
+    }
+  }
+  /deep/.base-input-number {
+    label {
+      display: none;
+    }
+    &>input {
+      background: #FFFFFF;
+      border: 1px solid #E0E0E0;
+      height: 58px;
+      width: 56px;
+      text-align: center;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      appearance: textfield;
+    }
   }
 }
 </style>
