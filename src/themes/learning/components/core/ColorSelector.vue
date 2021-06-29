@@ -1,11 +1,11 @@
 <template>
   <button
-    :class="['relative inline-flex pointer color', isActive ? 'active' : '']"
+    :class="['relative inline-flex pointer color p0 brdr-none', isActive ? 'active' : '']"
     @click="$emit('change', variant)"
-    :aria-label="$t('Select color ') + variant.label"
+    :aria-label="$t('Select color {variant}', { variant: variant.label })"
   >
     <span
-      class="absolute block color-inside"
+      class="block w-100 h-100 color-inside"
       :style="colorFrom(variant.label)"
     />
   </button>
@@ -39,22 +39,14 @@ export default {
 <style lang="scss" scoped>
   @import '~theme/css/variables/colors';
   @import '~theme/css/helpers/functions/color';
-  $color-active: color(primary);
 
   .color {
     width: 62px;
     height: 62px;
 
     &.active {
-      border-color: $color-active;
+      border-color: color(primary);
     }
   }
 
-  .color-inside {
-    width: 62px;
-    height: 62px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%)
-  }
 </style>

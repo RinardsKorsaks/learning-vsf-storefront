@@ -114,18 +114,20 @@ export default {
       }
     },
     onInput (e) {
-      console.log(this.value)
       this.$emit('input', e)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+  @import '~theme/css/variables/colors';
+  @import '~theme/css/helpers/functions/color';
+
 @mixin button-icon {
   content: "";
   width: 12px;
   height: 2px;
-  background: #333;
+  background: color(mine-shaft);
   position: absolute;
 }
 
@@ -139,8 +141,8 @@ export default {
     margin: auto;
   }
   .increase, .decrease {
-    background: #FFFFFF;
-    border: 1px solid #E0E0E0;
+    background: color(white);
+    border: 1px solid color(gainsboro);
     height: 62px;
     width: 62px;
     position: relative;
@@ -169,8 +171,8 @@ export default {
       display: none;
     }
     &>input {
-      background: #FFFFFF;
-      border: 1px solid #E0E0E0;
+      background: color(white);
+      border: 1px solid color(gainsboro);
       height: 58px;
       width: 56px;
       text-align: center;

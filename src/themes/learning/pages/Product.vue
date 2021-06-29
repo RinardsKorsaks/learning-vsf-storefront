@@ -35,80 +35,8 @@
               <div class="h4 details-wrapper mb15" :class="{'details-wrapper--open': detailsOpen}">
                 <div class="lh30 h5" v-html="getCurrentProduct.description" />
               </div>
-              <!-- <div class="cl-primary variants" v-if="getCurrentProduct.type_id =='configurable'">
-                <div
-                  class="error"
-                  v-if="getCurrentProduct.errors && Object.keys(getCurrentProduct.errors).length > 0"
-                >
-                  {{ getCurrentProduct.errors | formatProductMessages }}
-                </div> -->
-              <!-- <div class="h5" v-for="option in getProductOptions" :key="option.id">
-                  <div class="variants-label" data-testid="variantsLabel" v-if="option.label != 'Color'">
-                    {{ option.label }}
-                    <span
-                      class="weight-700"
-                    >{{ getOptionLabel(option) }}</span>
-                  </div>
-                  <div class="row top-xs m0 pt15 pb40 variants-wrapper" v-if="option.label != 'Color'">
-                    <div class="sizes" v-if="option.label == 'Size'">
-                      <size-selector
-                        class="mr10 mb10"
-                        v-for="filter in getAvailableFilters[option.attribute_code]"
-                        :key="filter.id"
-                        :variant="filter"
-                        :selected-filters="getSelectedFilters"
-                        @change="changeFilter"
-                      />
-                    </div>
-                    <div :class="option.attribute_code" v-else>
-                      <generic-selector
-                        class="mr10 mb10"
-                        v-for="filter in getAvailableFilters[option.attribute_code]"
-                        :key="filter.id"
-                        :variant="filter"
-                        :selected-filters="getSelectedFilters"
-                        @change="changeFilter"
-                      />
-                    </div>
-                    <span
-                      v-if="option.label == 'Size'"
-                      @click="openSizeGuide"
-                      class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary"
-                    >
-                      <i class="pr5 material-icons">accessibility</i>
-                      <span>{{ $t('Size guide') }}</span>
-                    </span>
-                  </div>
-                </div> -->
-              <!-- </div> -->
             </div>
-
-            <block :id="19" />
-
-            <!--
-            <div class="shipping row m0 w-100">
-              <button class=" bg-cl-primary col-xs-6 py20 px25 row m0">
-                <div>
-                  <div class="shipping-length">
-                    1-2 day shipping
-                  </div>
-                  <div class="shipping-price">
-                    $ 13.39
-                  </div>
-                </div>
-              </button>
-              <button class=" bg-cl-primary col-xs-6 py20 px25 row m0">
-                <div>
-                  <div class="shipping-length">
-                    5-7 day shipping
-                  </div>
-                  <div class="shipping-price">
-                    FREE
-                  </div>
-                </div>
-              </button>
-            </div> -->
-
+            <shipping />
             <product-links
               v-if="getCurrentProduct.type_id =='grouped'"
               :products="getCurrentProduct.product_links"
@@ -174,7 +102,6 @@
         </section>
       </div>
     </section>
-    <!-- <section class="container px15 pt50 pb35 cl-accent details" /> -->
     <lazy-hydrate when-idle>
       <related-products type="related" class="pb40" />
     </lazy-hydrate>
@@ -228,7 +155,7 @@ import { catalogHooksExecutors } from '@vue-storefront/core/modules/catalog-next
 import ProductPrice from 'theme/components/core/ProductPrice.vue'
 import { doPlatformPricesSync } from '@vue-storefront/core/modules/catalog/helpers'
 import { filterChangedProduct } from '@vue-storefront/core/modules/catalog/events'
-import Block from 'theme/components/core/blocks/Cms/Block'
+import Shipping from 'theme/components/core/blocks/Product/Shipping'
 
 export default {
   components: {
@@ -252,7 +179,7 @@ export default {
     LazyHydrate,
     ProductQuantity,
     ProductPrice,
-    Block
+    Shipping
   },
   mixins: [ProductOption],
   directives: { focusClean },
@@ -455,40 +382,6 @@ $color-secondary: color(secondary);
 $color-white: color(white);
 $bg-secondary: color(secondary, $colors-background);
 
-/deep/.cms-content {
-.shipping {
-  padding-bottom: 27px;
-  &>button {
-    border: none;
-    border-right: 1px solid #E0E0E0;
-    border-bottom: 1px solid #E0E0E0;
-    height: 80px;
-    min-width: 220px;
-
-    &::before {
-      content: "";
-      display: inline-block;
-      padding-right: 25px;
-      position: relative;
-      top: 8px;
-      height: 30px;
-      width: 40px;
-      background-image: url(../assets/icons/ic_delivery.svg);
-      background-repeat: no-repeat;
-    }
-  }
-  &-length {
-    font-size: 14px;
-    line-height: 24px;
-  }
-  &-price {
-    font-size: 14px;
-    line-height: 24px;
-    font-weight: bold;
-  }
-}
-}
-
 .product {
   &__add-to-compare {
     display: none;
@@ -660,11 +553,11 @@ $bg-secondary: color(secondary, $colors-background);
 
   &-carousel {
     padding: 0 43px;
-    background-color: #fff;
+    background-color: $color-white;
 
     &>i.zoom-in {
-    color: #fff;
-    background-color: #333;
+    color: $color-white;
+    background-color: color(mine-shaft);
     }
 
     .VueCarousel{
@@ -692,9 +585,8 @@ $bg-secondary: color(secondary, $colors-background);
   }
 }
 .details-wrapper {
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid color(gainsboro);
 }
-
 .color-selector {
   height: 62px;
 }

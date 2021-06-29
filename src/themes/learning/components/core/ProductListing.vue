@@ -1,5 +1,5 @@
 <template>
-  <div class="product-listing row m0 center-xs start-md" v-if="type == 'related'" :class="type">
+  <div class="product-listing row m0 center-xs start-md" v-if="type === 'related'" :class="type">
     <div
       v-for="product in products"
       :key="product.id"
@@ -8,14 +8,8 @@
       <product-tile :product="product" :type="type" />
     </div>
   </div>
-
-  <div class="product-listing row m0 center-xs start-md relative" :class="type" v-else-if="type == 'upsell'">
-    <!-- <div class="upsell-btn absolute">
-      <button class="previous bg-cl-primary" />
-      <button class="next bg-cl-primary" />
-    </div> -->
+  <div class="product-listing row m0 center-xs start-md relative" :class="type" v-else-if="type === 'upsell'">
     <carousel
-
       :per-page-custom="[[320,2],[768,4]]"
       :mouse-drag="false"
       :touch-drag="true"
@@ -38,7 +32,6 @@
       </slide>
     </carousel>
   </div>
-
   <div class="product-listing row m0 center-xs start-md" :class="type" v-else>
     <div
       v-for="(product, key) in products"
@@ -52,7 +45,8 @@
 </template>
 
 <script>
-import ProductTile from 'theme/components/core/ProductTile'
+import ProductTile from 'theme/components/core/ProductTile.vue'
+
 let lastHero = 0
 export default {
   name: 'ProductListing',
@@ -90,123 +84,146 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~theme/css/variables/typography';
+  @import '~theme/css/variables/colors';
+  @import '~theme/css/helpers/functions/color';
+
   .product-listing.related {
     /deep/.product {
       height: fit-content;
-      border: 1px solid #E0E0E0;
+      border: 1px solid color(gainsboro);
       padding: 0;
       position: relative;
+
       &__icons {
         display: none;
       }
+
       &-link {
         display: flex;
         flex-wrap: wrap;
         margin: 30px 0 30px 27px;
       }
-      div.product-cover{
+
+      div.product-cover {
         display: flex;
-        border: 1px solid #E0E0E0;
+        border: 1px solid color(gainsboro);
         width: 140px;
         min-width: 140px;
+
         &::before, &::after {
           content: "";
           width: 11px;
           height: 100%;
-          background-color: #fff;
+          background-color: color(white);
         }
       }
+
       &-info {
         margin-left: 25px;
         display: flex;
         flex-direction: column;
 
-        &>p {
-          color: #333;
+        & > p {
+          color: color(mine-shaft);
           text-align: left;
           margin-top: 7px;
-          font-family: 'Playfair Display';
+          font-family: map-get($font-families, secondary);
           font-style: normal;
           font-weight: bold;
           font-size: 20px;
           line-height: 28px;
         }
-        &>span {
+
+        & > span {
           text-align: left;
-          color: #4ED67D;
-          font-family: 'Playfair Display';
+          color: color(learning-green);
+          font-family: map-get($font-families, secondary);
           font-style: normal;
           font-weight: bold;
           font-size: 18px;
         }
-        &>button {
+
+        & > button {
           width: 170px;
           min-width: 170px;
           height: 52px;
           margin-top: 12px;
           padding-top: 10px;
           padding-bottom: 10px;
+
           &::before {
             display: none;
           }
         }
       }
+
       &-cover {
         height: 138px;
-        width: 116px;
+
+        .product-image__thumb {
+          top: 43%;
+        }
       }
     }
   }
+
   .product-listing.upsell {
       .upsell-btn {
         top: -62px;
         right: 8px;
       }
   }
+
   /deep/.VueCarousel {
     .VueCarousel-navigation {
       &-button {
           width: 70px;
           height: 32px;
-          border: 1px solid #E0E0E0;
+          border: 1px solid color(gainsboro);
           border-radius: 16px;
-          background-color: #fff;
+          background-color: color(white);
           position: absolute;
       }
+
       &-prev {
         left: unset;
         top: -67px;
         right: 20px;
+
         &::before {
           position: absolute;
           left: 25px;
           top: 13px;
           content: "";
-          border-left: 2px solid #4ED67D;
-          border-bottom: 2px solid #4ED67D;
+          border-left: 2px solid color(learning-green);
+          border-bottom: 2px solid color(learning-green);
           transform: rotate(45deg);
           width: 6px;
           height: 6px;
         }
+
         &::after {
           position: absolute;
           left: 25px;
           content: "";
           width: 20px;
           height: 2px;
-          background-color: #4ED67D;
+          background-color: color(learning-green);
         }
       }
+
       &-next {
           top: -67px;
           right: 78px;
+
         &::before {
           position: absolute;
           right: 25px;
           top: 13px;
           content: "";
-          border-top: 2px solid #4ED67D;
-          border-right: 2px solid #4ED67D;
+          border-top: 2px solid color(learning-green);
+          border-right: 2px solid color(learning-green);
           transform: rotate(45deg);
           width: 6px;
           height: 6px;
@@ -217,9 +234,10 @@ export default {
           content: "";
           width: 20px;
           height: 2px;
-          background-color: #4ED67D;
+          background-color: color(learning-green);
         }
       }
+
       @media only screen and (max-width: 768px) {
         &-button {
           display: none;
